@@ -1,0 +1,10 @@
+---
+applications:
+- name: contoso
+  memory: 512m
+  stack: windows2012R2
+  buildpack: binary_buildpack
+  health-check-type: none
+  random-route: true
+  services:
+  - schoolcontext
