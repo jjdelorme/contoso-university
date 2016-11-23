@@ -11,6 +11,7 @@ using System.Data.Entity.Infrastructure;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Pivotal.Discovery.Client;
 using WebGrease.Css.Extensions;
 
 namespace ContosoUniversity.Controllers
@@ -270,8 +271,9 @@ namespace ContosoUniversity.Controllers
 
         private static async Task<IList<Office>> GetOffices()
         {
-            var httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("http://localhost:49228/api/office");
+            var handler = new DiscoveryHttpClientHandler(MvcApplication.DiscoveryClient);
+            var httpClient = new HttpClient(handler, false);
+            HttpResponseMessage response = await httpClient.GetAsync("http://contoso-office/api/office");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {

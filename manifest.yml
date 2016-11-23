@@ -8,3 +8,4 @@ applications:
   random-route: true
   services:
   - schoolcontext
+  - contosoregistry

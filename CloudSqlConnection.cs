@@ -40,8 +40,8 @@ namespace ContosoUniversity
 
         private static string LoadCloudConnectionString()
         {
-            var config = new ConfigurationBuilder().AddCloudFoundry().Build();
-           if (config["vcap:services:user-provided:0:name"] == "schoolcontext")
+            var config = MvcApplication.Configuration;
+            if (config["vcap:services:user-provided:0:name"] == "schoolcontext")
             {
                 return config["vcap:services:user-provided:0:credentials:connectionString"];
             }
