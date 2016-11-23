@@ -239,6 +239,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\Office.cs" />
     <Compile Include="Models\OfficeAssignment.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Student.cs" />

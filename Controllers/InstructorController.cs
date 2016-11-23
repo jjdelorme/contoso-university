@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
 using System.Data.Entity.Infrastructure;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using WebGrease.Css.Extensions;
 
 namespace ContosoUniversity.Controllers
 {
@@ -18,8 +20,11 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Instructor
-        public ActionResult Index(int? id, int? courseID)
+        public async Task<ActionResult> Index(int? id, int? courseID)
         {
+            // kick off async call to get all the offices
+            var officesTask = GetOffices();
+
             var viewModel = new InstructorIndexData();
 
             viewModel.Instructors = db.Instructors
@@ -50,6 +55,17 @@ namespace ContosoUniversity.Controllers
 
                 viewModel.Enrollments = selectedCourse.Enrollments;
             }
+
+            // if instructor has an office add the city where its located
+            var officesByBuildingAndLocation = (await officesTask).ToDictionary(o => o.BuildingName + " " + o.LocationNumber);
+            viewModel.Instructors.Where(i => i.OfficeAssignment != null).ForEach(i =>
+            {
+                Office office;
+                if (officesByBuildingAndLocation.TryGetValue(i.OfficeAssignment.Location, out office))
+                {
+                    i.OfficeAssignment.City = office.City;
+                }
+            });
 
             return View(viewModel);
         }
@@ -251,6 +267,19 @@ namespace ContosoUniversity.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        private static async Task<IList<Office>> GetOffices()
+        {
+            var httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync("http://localhost:49228/api/office");
+            var content = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<IList<Office>>(content);
+            }
+            return new List<Office>();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
