@@ -16,12 +16,12 @@ spec:
         app: contoso
     spec:
       containers:
-      - image: gcr.io/jasondel-test-project/win16-image:v1.0.2
+      - image: gcr.io/jasondel-test-project/win16-image:v1.0.5
         imagePullPolicy: IfNotPresent
         name: contoso-container
         volumeMounts: 
         - name: connection-strings
-          mountPath: "/secret"
+          mountPath: "/inetpub/wwwroot/ContosoUniversity/secret"
           readOnly: true        
         ports:
         - containerPort: 80
