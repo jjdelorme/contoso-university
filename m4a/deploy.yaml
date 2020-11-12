@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: contoso
+  name: contoso
+  namespace: contoso
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contoso
+  template:
+    metadata:
+      labels:
+        app: contoso
+    spec:
+      containers:
+      - image: gcr.io/jasondel-test-project/win16-image:v1.0.1
+        imagePullPolicy: IfNotPresent
+        name: contoso-container
+        volumeMounts: 
+        - name: connection-strings
+          mountPath: "/secret"
+          readOnly: true        
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      nodeSelector:
+        kubernetes.io/os: windows
+      volumes:
+      - name: connection-strings
+        secret:
+          secretName: connection-strings
+      restartPolicy: Always
