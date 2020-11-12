@@ -16,7 +16,7 @@ spec:
         app: contoso
     spec:
       containers:
-      - image: gcr.io/jasondel-test-project/win16-image:v1.0.1
+      - image: gcr.io/jasondel-test-project/win16-image:v1.0.2
         imagePullPolicy: IfNotPresent
         name: contoso-container
         volumeMounts: 

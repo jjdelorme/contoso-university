@@ -3,12 +3,12 @@ This directory contains artifacts generated from M4A.
 Run a docker build on this directory to create the container image.
 
 ## Connection Strings
-Note that the database connection string is stored as a K8S secret.  To reference this secret with no code changes, use the following ```configSource``` in the Web.config file:
+Note that the database connection string is stored as a K8S secret.  To reference this secret with no code changes, use the following ```configSource``` in the Web.config file.  Notice the path.
 
 ```xml
 <configuration>
   ...
-  <connectionStrings configSource="/secret/connectionStrings.config"/>
+  <connectionStrings configSource="C:\\secret\\connectionStrings.config"/>
   ...
 </configuration>
 ```
@@ -39,4 +39,12 @@ The deployment then references this with:
       - name: connection-strings
         secret:
           secretName: connection-strings
+```
+## Debuging Windows Containers
+Quick note on how you can debug a Windows Container, i.e. to see if the secret properly gets mounted.  You can jump into a command prompt by using kubectl exec:
+
+```bash
+kubectl exec -it -n contoso contoso-57d6d9887d-4mdnf cmd
+...
+C:\>_
 ```
