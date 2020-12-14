@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="CymbalUniversity" />
+  <setParameter name="SchoolContext-Web.config Connection String" value="Data Source=(localdb)\ProjectsV13;Initial Catalog=ContosoUniversity;Integrated Security=true;MultipleActiveResultSets=True" />
+</parameters>
