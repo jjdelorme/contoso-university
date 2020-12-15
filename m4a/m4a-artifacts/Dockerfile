@@ -32,9 +32,8 @@ Enable-WindowsOptionalFeature -Online -All -FeatureName IIS-WebServerManagementT
 COPY "gac" "m4a\gac"
 RUN C:\m4a\install_gac.ps1 -GacDir C:\m4a\gac
 # Setting up IIS
-# Copying IIS files
-COPY ["c\\inetpub\\wwwroot", "c:\\inetpub\\wwwroot"]
-COPY ["c\\inetpub\\wwwroot\\contosouniversity", "c:\\inetpub\\wwwroot\\contosouniversity"]
+# Copying source
+COPY [".", "c:\\inetpub\\wwwroot\\cymbaluniversity"]
 
 # Setting up IIS
 RUN c:\windows\system32\inetsrv\appcmd.exe set config \"/section:httpLogging\" \"/dontLog:False\"
@@ -51,16 +50,12 @@ c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0\" \"/managedRunti
 c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
 c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v4.5 Classic\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
 c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v4.5\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-New-WebAppPool -Name 'ContosoUniversity' -Force; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \"ContosoUniversity\" \"/processModel.identityType:ApplicationPoolIdentity\";
+New-WebAppPool -Name 'CymbalUniversity' -Force; `
+c:\windows\system32\inetsrv\appcmd.exe set apppool \"CymbalUniversity\" \"/processModel.identityType:ApplicationPoolIdentity\";
 
-# Adding website Default Web Site
-RUN New-Website -Name 'Default Web Site' -PhysicalPath 'c:\inetpub\wwwroot' -Port 8080 -Force; `
-c:\windows\system32\inetsrv\appcmd.exe set site \"Default Web Site\" \"/[path='/'].applicationPool:DefaultAppPool\";
-
-# Adding website ContosoUniversity
-RUN New-Website -Name 'ContosoUniversity' -PhysicalPath 'c:\inetpub\wwwroot\contosouniversity' -Port 80 -Force; `
-c:\windows\system32\inetsrv\appcmd.exe set site \"ContosoUniversity\" \"/[path='/'].applicationPool:ContosoUniversity\";
+# Adding website CymbalUniversity
+RUN New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymbaluniversity' -Port 80 -Force; `
+c:\windows\system32\inetsrv\appcmd.exe set site \"CymbalUniversity\" \"/[path='/'].applicationPool:CymbalUniversity\";
 
 # Applying ACLs
 COPY set_acls.bat C:\set_acls.bat
