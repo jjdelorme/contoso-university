@@ -23,5 +23,9 @@ select,
 textarea { max-width: 280px; }
 
 .intro {
-    background-image: url('/content/images/contoso.jpg')
+    background-image: url('/content/images/sitting.jfif');
+    background-size: 300px;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-color: #A3FD8C;
 }
