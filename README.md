@@ -3,7 +3,9 @@ This sample is a slight modification of the ASP.NET MVC 5 application that demon
 
 ## Deployment
 
-To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo at ```./WebDeploy/```
+To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo at ```./WebDeploy/```.  
+
+While you can use similar instructions to deploy to a remote Windows Server, for simplicity these instructions are written to be executed from the Windows Server hosting IIS.  
 
 ### Create Database
 
@@ -30,7 +32,7 @@ Note that the connectionStrings.config file is referenced from ```Web.config```:
 
 ### Populate database with sample data
 
- If you are doing this for the first time and the database has not been created,open up nuget package manager console and execute:
+NOTE this is optional and only if you have Visual Studio installed.  If you are doing this for the first time and the database has not been created, you can use Visual Studio and the nuget package manager console to execute:
  ```
  update-database -Verbose
  ```
@@ -61,6 +63,11 @@ Execute the deployment command from the root of where you cloned this repo:
 cd WebDeploy
 CymbalUniversity.deploy.cmd /Y
 ```
+
+Copy the ```connectionStrings.config``` file to the web root directory:
+~~~bash
+copy ..\connectionStrings.config c:\inetpub\wwwroot\cymbaluniversity\
+~~~
 
 Test the application in your browser: ```http://localhost```
 
