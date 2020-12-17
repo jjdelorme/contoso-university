@@ -3,7 +3,7 @@ This sample is a slight modification of the ASP.NET MVC 5 application that demon
 
 ## Deployment
 
-To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo at ~~~./WebDeploy/
+To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo at ```./WebDeploy/```
 
 ### Create Database
 
@@ -37,27 +37,30 @@ Note that the connectionStrings.config file is referenced from ```Web.config```:
 
 ### Create an IIS Site
 
-1. Create a host directory
+Create a host directory
 
 ```bash
 mkdir c:\inetpub\wwwroot\CymbalUniversity
 ```
 
-1. Create a new IIS website through the IIS Manager or with PowerShell:
+Create a new IIS app pool and website through the IIS Manager or with PowerShell:
 
 ```bash
+New-WebAppPool -Name 'CymbalUniversity' -Force; `
+c:\windows\system32\inetsrv\appcmd.exe set apppool \"CymbalUniversity\" \"/processModel.identityType:ApplicationPoolIdentity\";
+
 New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymbaluniversity' -Port 80 -Force; `
 c:\windows\system32\inetsrv\appcmd.exe set site \"CymbalUniversity\" \"/[path='/'].applicationPool:CymbalUniversity\";
 ```
 
 ### Deploy the application
 
-1. Execute the deployment command from the root of where you cloned this repo:
+Execute the deployment command from the root of where you cloned this repo:
 
 ```bash
 cd WebDeploy
 CymbalUniversity.deploy.cmd /Y
 ```
 
-1. Test the application in your browser: ```http://localhost```
+Test the application in your browser: ```http://localhost```
 
