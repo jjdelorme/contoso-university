@@ -5044,14 +5044,15 @@ a.badge:focus {
   margin-left: 3px;
 }
 .jumbotron {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  color: inherit;
-  background-color: #eeeeee;
-  font-size: 70px;
-  font-weight: 500;
-  font-stretch: wider;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: #eeeeee;
+    font-size: 70px;
+}
+.jumbotron intro {
+    font-size: 80px;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -5067,9 +5068,10 @@ a.badge:focus {
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
-  padding-right: 15px;
-  padding-left: 15px;
-  border-radius: 6px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+    font-size: 70px;
 }
 .jumbotron .container {
   max-width: 100%;
