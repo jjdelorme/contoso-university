@@ -7,6 +7,12 @@ To deploy you will follow these instructions to create a SQL Server database and
 
 While you can use similar instructions to deploy to a remote Windows Server, for simplicity these instructions are written to be executed from the Windows Server hosting IIS.  
 
+## Prerequisites
+
+This assumes you have a Windows Server with the IIS role installed.  Make sure you also have the (Web Deploy tool)[https://go.microsoft.com/fwlink/?linkid=209116] installed on that server.
+
+If you do not have git on the remote server, you can download this repository from (here)[https://github.com/jjdelorme/contoso-university/archive/cymbal.zip] and then just copy the contents of the ```.\WebDeploy``` directory which is the deployment package.  You don't need the remainder of the source files.
+
 ### Create Database
 
 1. Create an empty SQL Server database named CymbalUniversity 
@@ -39,6 +45,13 @@ NOTE this is optional and only if you have Visual Studio installed.  If you are 
 
 ### Create an IIS Site
 
+**Run the following commands from a priledged powershell command prompt (Run As Administrator).**
+
+```bash
+Add-WindowsFeature NET-Framework-45-ASPNET
+Add-WindowsFeature Web-Asp-Net45
+```
+
 Create a host directory
 
 ```bash
@@ -48,11 +61,11 @@ mkdir c:\inetpub\wwwroot\CymbalUniversity
 Create a new IIS app pool and website through the IIS Manager or with PowerShell:
 
 ```bash
-New-WebAppPool -Name 'CymbalUniversity' -Force; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \"CymbalUniversity\" \"/processModel.identityType:ApplicationPoolIdentity\";
+New-WebAppPool -Name 'CymbalUniversity' -Force
+c:\windows\system32\inetsrv\appcmd.exe set apppool "CymbalUniversity" "/processModel.identityType:ApplicationPoolIdentity"
 
-New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymbaluniversity' -Port 80 -Force; `
-c:\windows\system32\inetsrv\appcmd.exe set site \"CymbalUniversity\" \"/[path='/'].applicationPool:CymbalUniversity\";
+New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymbaluniversity' -Port 80 -Force
+c:\windows\system32\inetsrv\appcmd.exe set site "CymbalUniversity" "/[path='/'].applicationPool:CymbalUniversity"
 ```
 
 ### Deploy the application
