@@ -34,24 +34,15 @@ RUN c:\windows\system32\inetsrv\appcmd.exe set config \"/section:httpLogging\" \
 RUN Remove-Website -Name 'Default Web Site'
 
 # Creating IIS AppPools
-RUN c:\windows\system32\inetsrv\appcmd.exe set apppool \"DefaultAppPool\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \"Classic .NET AppPool\" \"/managedRuntimeVersion:v2.0\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \"Classic .NET AppPool\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0 Classic\" \"/managedRuntimeVersion:v2.0\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0 Classic\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0\" \"/managedRuntimeVersion:v2.0\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v2.0\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v4.5 Classic\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-c:\windows\system32\inetsrv\appcmd.exe set apppool \".NET v4.5\" \"/processModel.identityType:ApplicationPoolIdentity\"; `
-New-WebAppPool -Name 'CymbalUniversity' -Force; `
+RUN New-WebAppPool -Name 'CymbalUniversity' -Force; `
 c:\windows\system32\inetsrv\appcmd.exe set apppool \"CymbalUniversity\" \"/processModel.identityType:ApplicationPoolIdentity\";
 
 # Adding website CymbalUniversity
 RUN New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymbaluniversity' -Port 80 -Force; `
 c:\windows\system32\inetsrv\appcmd.exe set site \"CymbalUniversity\" \"/[path='/'].applicationPool:CymbalUniversity\";
 
-COPY . /temp/
+COPY . \deploy
 
-WORKDIR ./temp/
+WORKDIR \deploy
 
 RUN ContosoUniversity.deploy.cmd /Y
