@@ -3,15 +3,15 @@ This sample is a slight modification of the ASP.NET MVC 5 application that demon
 
 ## Deployment
 
-To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo's ```.\WebDeploy``` directory.  
+To deploy you will follow these instructions to create a SQL Server database and an IIS Site to deploy from a Web Deploy package located in this repo's ```.\WebDeploy``` directory.  This deployment is based on the Microsoft sample [here](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/visual-studio-web-deployment/deploying-to-iis).
 
 While you can use similar instructions to deploy to a remote Windows Server, for simplicity these instructions are written to be executed from the Windows Server hosting IIS.  
 
 ## Prerequisites
 
-This assumes you have a Windows Server with the IIS role installed.  Make sure you also have the (Web Deploy tool)[https://go.microsoft.com/fwlink/?linkid=209116] installed on that server.
+This assumes you have a Windows Server with the IIS role installed.  Make sure you also have the [Web Deploy tool](https://go.microsoft.com/fwlink/?linkid=209116) installed on that server.
 
-If you do not have git on the remote server, you can download this repository from (here)[https://github.com/jjdelorme/contoso-university/archive/cymbal.zip] and then just copy the contents of the ```.\WebDeploy``` directory which is the deployment package.  You don't need the remainder of the source files.
+If you do not have git on the remote server, you can download this repository from [here](https://github.com/jjdelorme/contoso-university/archive/cymbal.zip) and then just copy the contents of the ```.\WebDeploy``` directory which is the deployment package.  You don't need the remainder of the source files.
 
 ### Create Database
 
