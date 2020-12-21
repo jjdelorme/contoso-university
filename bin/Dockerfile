@@ -45,4 +45,4 @@ RUN New-Website -Name 'CymbalUniversity' -PhysicalPath 'c:\inetpub\wwwroot\cymba
 c:\windows\system32\inetsrv\appcmd.exe set site \"CymbalUniversity\" \"/[path='/'].applicationPool:CymbalUniversity\";
 
 COPY .\publish\ c:\inetpub\wwwroot\cymbaluniversity\
-#COPY .\database\connectionStrings.config c:\inetpub\wwwroot\cymbaluniversity\connectionStrings.config
+#COPY .\database\connectionStrings.config c:\inetpub\wwwroot\cymbaluniversity\secret\connectionStrings.config
