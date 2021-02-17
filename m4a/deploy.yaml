@@ -28,6 +28,7 @@ spec:
           protocol: TCP
       nodeSelector:
         kubernetes.io/os: windows
+        cloud.google.com/gke-os-distribution: windows_sac
       volumes:
       - name: connection-strings
         secret:
