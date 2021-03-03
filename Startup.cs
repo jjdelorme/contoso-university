@@ -45,7 +45,7 @@ namespace ContosoUniversity
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "Content/Images")),
+                    Path.Combine(env.ContentRootPath, "Content/images")),
                 RequestPath = "/images"
             });
             app.UseRouting();
