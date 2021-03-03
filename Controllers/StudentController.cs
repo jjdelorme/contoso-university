@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -56,7 +56,7 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var student = _db.Students.Find(id);
             if (student == null) return HttpNotFound();
             return View(student);
@@ -99,7 +99,7 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var student = _db.Students.Find(id);
             if (student == null) return HttpNotFound();
             return View(student);
@@ -113,7 +113,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var studentToUpdate = _db.Students.Find(id);
             if (TryUpdateModel(studentToUpdate, "",
                 new[] {"LastName", "FirstMidName", "EnrollmentDate"}))
@@ -136,7 +136,7 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Delete/5
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             if (saveChangesError.GetValueOrDefault())
                 ViewBag.ErrorMessage =
                     "Delete failed. Try again, and if the problem persists see your system administrator.";

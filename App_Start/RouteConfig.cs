@@ -1,6 +1,4 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
-
+﻿
 namespace ContosoUniversity
 {
     public class RouteConfig

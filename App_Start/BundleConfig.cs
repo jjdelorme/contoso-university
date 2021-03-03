@@ -1,5 +1,4 @@
-﻿using System.Web.Optimization;
-
+﻿
 namespace ContosoUniversity
 {
     public class BundleConfig

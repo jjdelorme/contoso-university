@@ -4,9 +4,9 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -24,7 +24,7 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
 
             // Commenting out original code to show how to use a raw SQL query.
             //Department department = await db.Departments.FindAsync(id);
@@ -66,7 +66,7 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var department = await _db.Departments.FindAsync(id);
             if (department == null) return HttpNotFound();
             ViewBag.InstructorID = new SelectList(_db.Instructors, "ID", "FullName", department.InstructorID);
@@ -82,7 +82,7 @@ namespace ContosoUniversity.Controllers
         {
             string[] fieldsToBind = {"Name", "Budget", "StartDate", "InstructorID", "RowVersion"};
 
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
 
             var departmentToUpdate = await _db.Departments.FindAsync(id);
             if (departmentToUpdate == null)
@@ -152,7 +152,7 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Delete/5
         public async Task<ActionResult> Delete(int? id, bool? concurrencyError)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var department = await _db.Departments.FindAsync(id);
             if (department == null)
             {

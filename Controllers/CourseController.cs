@@ -2,9 +2,9 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -30,7 +30,7 @@ namespace ContosoUniversity.Controllers
         // GET: Course/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var course = _db.Courses.Find(id);
             if (course == null) return HttpNotFound();
             return View(course);
@@ -70,7 +70,7 @@ namespace ContosoUniversity.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var course = _db.Courses.Find(id);
             if (course == null) return HttpNotFound();
             PopulateDepartmentsDropDownList(course.DepartmentID);
@@ -82,7 +82,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var courseToUpdate = _db.Courses.Find(id);
             if (TryUpdateModel(courseToUpdate, "",
                 new[] {"Title", "Credits", "DepartmentID"}))
@@ -115,7 +115,7 @@ namespace ContosoUniversity.Controllers
         // GET: Course/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var course = _db.Courses.Find(id);
             if (course == null) return HttpNotFound();
             return View(course);

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoUniversity.Controllers
 {

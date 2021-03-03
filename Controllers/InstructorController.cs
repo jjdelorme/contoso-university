@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoUniversity.Controllers
 {
@@ -53,7 +53,7 @@ namespace ContosoUniversity.Controllers
         // GET: Instructor/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var instructor = _db.Instructors.Find(id);
             if (instructor == null) return HttpNotFound();
             return View(instructor);
@@ -97,7 +97,7 @@ namespace ContosoUniversity.Controllers
         // GET: Instructor/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var instructor = _db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses)
@@ -130,7 +130,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, string[] selectedCourses)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var instructorToUpdate = _db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses)
@@ -187,7 +187,7 @@ namespace ContosoUniversity.Controllers
         // GET: Instructor/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
             var instructor = _db.Instructors.Find(id);
             if (instructor == null) return HttpNotFound();
             return View(instructor);
