@@ -14,9 +14,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Update="Migrations\201411021828194_InitialCreate.Designer.cs">
       <DependentUpon>201411021828194_InitialCreate.cs</DependentUpon>
     </Compile>
@@ -46,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Start\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Migrations\201411021828194_InitialCreate.resx">
