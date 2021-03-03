@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="3.4.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="jQuery" Version="1.10.2" />
     <PackageReference Include="jQuery.Validation" Version="1.11.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />

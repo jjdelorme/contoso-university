@@ -23,5 +23,5 @@ select,
 textarea { max-width: 280px; }
 
 .intro {
-    background-image: url('/content/images/contoso.jpg')
+    background-image: url('/images/contoso.jpg')
 }
