@@ -10,10 +10,6 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Migrations\201411021828194_InitialCreate.Designer.cs">
       <DependentUpon>201411021828194_InitialCreate.cs</DependentUpon>
     </Compile>
