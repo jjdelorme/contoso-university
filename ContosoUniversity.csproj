@@ -74,8 +74,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.0" />
     <PackageReference Include="Modernizr" Version="2.6.2" />
-    <PackageReference Include="PagedList.Mvc" Version="4.5.0.0" />
-    <PackageReference Include="PivotalServices.CloudFoundryShims" Version="1.0.0-beta" />
+    <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
     <PackageReference Include="Respond" Version="1.2.0" />
     <PackageReference Include="System.Buffers" Version="4.4.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
