@@ -3,8 +3,9 @@ using System.Linq;
 using System.Net;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
-using PagedList;
+using PagedList.Core;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ContosoUniversity.Controllers
 {
@@ -56,9 +57,9 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
             var student = _db.Students.Find(id);
-            if (student == null) return HttpNotFound();
+            if (student == null) return NotFound();
             return View(student);
         }
 
@@ -73,7 +74,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName, FirstMidName, EnrollmentDate")]
+        public ActionResult Create([Bind("LastName, FirstMidName, EnrollmentDate")]
             Student student)
         {
             try
@@ -99,9 +100,9 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
             var student = _db.Students.Find(id);
-            if (student == null) return HttpNotFound();
+            if (student == null) return NotFound();
             return View(student);
         }
 
@@ -111,12 +112,11 @@ namespace ContosoUniversity.Controllers
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public async Task<ActionResult> EditPost(int? id)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
             var studentToUpdate = _db.Students.Find(id);
-            if (TryUpdateModel(studentToUpdate, "",
-                new[] {"LastName", "FirstMidName", "EnrollmentDate"}))
+            if (await TryUpdateModelAsync(studentToUpdate))
                 try
                 {
                     _db.SaveChanges();
@@ -136,12 +136,12 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Delete/5
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) BadRequest();
             if (saveChangesError.GetValueOrDefault())
                 ViewBag.ErrorMessage =
                     "Delete failed. Try again, and if the problem persists see your system administrator.";
             var student = _db.Students.Find(id);
-            if (student == null) return HttpNotFound();
+            if (student == null) return NotFound();
             return View(student);
         }
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ContosoUniversity.Controllers
 {
@@ -24,7 +25,7 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) BadRequest();
 
             // Commenting out original code to show how to use a raw SQL query.
             //Department department = await db.Departments.FindAsync(id);
@@ -33,7 +34,7 @@ namespace ContosoUniversity.Controllers
             var query = "SELECT * FROM Department WHERE DepartmentID = @p0";
             var department = await _db.Departments.SqlQuery(query, id).SingleOrDefaultAsync();
 
-            if (department == null) return HttpNotFound();
+            if (department == null) return NotFound();
             return View(department);
         }
 
@@ -49,7 +50,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID")]
+        public async Task<ActionResult> Create([Bind("DepartmentID,Name,Budget,StartDate,InstructorID")]
             Department department)
         {
             if (ModelState.IsValid)
@@ -66,9 +67,9 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
             var department = await _db.Departments.FindAsync(id);
-            if (department == null) return HttpNotFound();
+            if (department == null) return NotFound();
             ViewBag.InstructorID = new SelectList(_db.Instructors, "ID", "FullName", department.InstructorID);
             return View(department);
         }
@@ -82,20 +83,20 @@ namespace ContosoUniversity.Controllers
         {
             string[] fieldsToBind = {"Name", "Budget", "StartDate", "InstructorID", "RowVersion"};
 
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
 
             var departmentToUpdate = await _db.Departments.FindAsync(id);
             if (departmentToUpdate == null)
             {
                 var deletedDepartment = new Department();
-                TryUpdateModel(deletedDepartment, fieldsToBind);
+                await TryUpdateModelAsync(deletedDepartment);
                 ModelState.AddModelError(string.Empty,
                     "Unable to save changes. The department was deleted by another user.");
                 ViewBag.InstructorID = new SelectList(_db.Instructors, "ID", "FullName", deletedDepartment.InstructorID);
                 return View(deletedDepartment);
             }
 
-            if (TryUpdateModel(departmentToUpdate, fieldsToBind))
+            if (await TryUpdateModelAsync(departmentToUpdate))
                 try
                 {
                     _db.Entry(departmentToUpdate).OriginalValues["RowVersion"] = rowVersion;
@@ -152,12 +153,12 @@ namespace ContosoUniversity.Controllers
         // GET: Department/Delete/5
         public async Task<ActionResult> Delete(int? id, bool? concurrencyError)
         {
-            if (id == null) return new StatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return BadRequest();
             var department = await _db.Departments.FindAsync(id);
             if (department == null)
             {
                 if (concurrencyError.GetValueOrDefault()) return RedirectToAction("Index");
-                return HttpNotFound();
+                return NotFound();
             }
 
             if (concurrencyError.GetValueOrDefault())
