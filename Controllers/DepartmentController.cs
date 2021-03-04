@@ -13,7 +13,12 @@ namespace ContosoUniversity.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly SchoolContext _db = new SchoolContext();
+        private readonly SchoolContext _db;
+
+        public DepartmentController(SchoolContext db)
+        {
+             _db = db;
+        }
 
         // GET: Department
         public async Task<ActionResult> Index()

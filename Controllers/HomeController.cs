@@ -7,7 +7,13 @@ namespace ContosoUniversity.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly SchoolContext _db = new SchoolContext();
+        private readonly SchoolContext _db;
+
+        public HomeController(SchoolContext db)
+        {
+             _db = db;
+        }
+
 
         public ActionResult Index()
         {

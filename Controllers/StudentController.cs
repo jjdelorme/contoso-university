@@ -11,7 +11,12 @@ namespace ContosoUniversity.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly SchoolContext _db = new SchoolContext();
+        private readonly SchoolContext _db;
+
+        public StudentController(SchoolContext db)
+        {
+             _db = db;
+        }
 
         // GET: Student
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
